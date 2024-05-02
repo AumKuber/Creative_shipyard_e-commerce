@@ -4,6 +4,7 @@ import cross_icon from "../Assets/cross_icon.png";
 
 const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
+  console.log("allproducts :>> ", allproducts);
 
   const fetchInfo = () => {
     fetch("http://localhost:4000/allproducts")

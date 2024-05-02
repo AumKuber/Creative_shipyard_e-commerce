@@ -12,13 +12,13 @@ const Footer = () => {
       <div className="footer-logo">
         <img src={footer_logo} alt="" />
       </div>
-      <ul className="footer-links">
+      {/* <ul className="footer-links">
         <li>Company</li>
         <li>Products</li>
         <li>Offices</li>
         <li>About</li>
         <li>Contact</li>
-      </ul>
+      </ul> */}
       <div className="footer-social-icons">
         <div className="footer-icons-container">
             <img src={instagram_icon} alt="" />

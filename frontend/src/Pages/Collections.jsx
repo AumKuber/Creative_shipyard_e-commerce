@@ -9,10 +9,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { CircularProgress, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 
-const ShopCategory = (props) => {
+const Collections = () => {
+  const { id } = useParams();
+  console.log("id :>> ", id);
   const [allproducts, setAllProducts] = useState([]);
+
   const [sortBy, setSortBy] = useState("SortBy");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -24,15 +27,10 @@ const ShopCategory = (props) => {
       .then((res) => res.json())
       .then((data) => {
         if (sortBy && sortBy != "SortBy") {
-          const filteredArr = data.filter(
-            (item) =>
-              item?.category === props.category && item?.subCategory === sortBy
-          );
+          const filteredArr = data.filter((item) => item?.subCategory === id);
           setAllProducts(filteredArr);
         } else {
-          const filteredArr = data.filter(
-            (item) => item?.category === props.category
-          );
+          const filteredArr = data.filter((item) => item?.subCategory === id);
           setAllProducts(filteredArr);
         }
         setLoading(false);
@@ -42,35 +40,23 @@ const ShopCategory = (props) => {
   useEffect(() => {
     setCurrentPage(1);
     fetchInfo();
-  }, [sortBy, props.category]);
+  }, [sortBy, id]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = allproducts.slice(indexOfFirstItem, indexOfLastItem);
 
   if (loading) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-      >
-        <CircularProgress color="secondary" />
-      </Box>
-    );
+    return <p>Loading...</p>;
   }
   return (
     <div className="shopcategory">
-      <img
+      {/* <img
         src={props.banner}
         className="shopcategory-banner"
         alt=""
         height={400}
-      />
+      /> */}
       <div className="shopcategory-indexSort">
         <p>
           {/* <span>Showing 1 - 12</span> out of 54 Products */}
@@ -83,7 +69,7 @@ const ShopCategory = (props) => {
         {/* <div className="shopcategory-sort"> */}
         <div className="">
           {/* Sort by <img src={dropdown_icon} alt="" /> */}
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
               id="demo-simple-select-helper"
               value={sortBy}
@@ -96,7 +82,7 @@ const ShopCategory = (props) => {
               <MenuItem value="gifts">Gifts</MenuItem>
               <MenuItem value="outwear">Outerwear</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </div>
       </div>
       <div className="shopcategory-products">
@@ -114,7 +100,7 @@ const ShopCategory = (props) => {
             );
           })
         ) : (
-          <h1>There is no item with these subcategories</h1>
+          <h1>There is no item with these collections</h1>
         )}
         <div
           style={{
@@ -141,4 +127,4 @@ const ShopCategory = (props) => {
   );
 };
 
-export default ShopCategory;
+export default Collections;

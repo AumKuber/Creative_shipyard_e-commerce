@@ -10,10 +10,6 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-// Database Connection With MongoDB
-mongoose.connect("mongodb+srv://kuberom50:Tadwx5CRzLls7ZHL@cluster0.kzyo7pp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(console.log("Database connected"));
-
-
 //Image Storage Engine
 const storage = multer.diskStorage({
   destination: "./upload/images",
@@ -88,6 +84,10 @@ const Product = mongoose.model("Product", {
     type: String,
     required: true,
   },
+  subCategory: {
+    type: String,
+    required: true,
+  },
   new_price: {
     type: Number,
   },
@@ -126,20 +126,16 @@ app.post("/login", async (req, res) => {
       const token = jwt.sign(data, "secret_ecom");
       res.json({ success, token });
     } else {
-      return res
-        .status(400)
-        .json({
-          success: success,
-          errors: "please try with correct email/password",
-        });
-    }
-  } else {
-    return res
-      .status(400)
-      .json({
+      return res.status(400).json({
         success: success,
         errors: "please try with correct email/password",
       });
+    }
+  } else {
+    return res.status(400).json({
+      success: success,
+      errors: "please try with correct email/password",
+    });
   }
 });
 
@@ -149,12 +145,10 @@ app.post("/signup", async (req, res) => {
   let success = false;
   let check = await Users.findOne({ email: req.body.email });
   if (check) {
-    return res
-      .status(400)
-      .json({
-        success: success,
-        errors: "existing user found with this email",
-      });
+    return res.status(400).json({
+      success: success,
+      errors: "existing user found with this email",
+    });
   }
   let cart = {};
   for (let i = 0; i < 300; i++) {
@@ -180,7 +174,7 @@ app.post("/signup", async (req, res) => {
 
 app.get("/allproducts", async (req, res) => {
   let products = await Product.find({});
-  console.log("All Products");
+  console.log("All Products", products);
   res.send(products);
 });
 
@@ -241,11 +235,13 @@ app.post("/addproduct", async (req, res) => {
   } else {
     id = 1;
   }
+  console.log("req.body :>> ", req.body);
   const product = new Product({
     id: id,
     name: req.body.name,
     image: req.body.image,
     category: req.body.category,
+    subCategory: req.body.subCategory,
     new_price: req.body.new_price,
     old_price: req.body.old_price,
   });
@@ -261,7 +257,17 @@ app.post("/removeproduct", async (req, res) => {
   res.json({ success: true, name: req.body.name });
 });
 
-app.listen(port, (error) => {
-  if (!error) console.log("Server Running on port " + port);
-  else console.log("Error : ", error);
-});
+const start = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://kuberom50:Tadwx5CRzLls7ZHL@cluster0.kzyo7pp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
+    app.listen(port, () =>
+      console.log(`Server is listening at port ${port}...`)
+    );
+  } catch (error) {
+    console.log("error :>> ", error);
+  }
+};
+
+start();
