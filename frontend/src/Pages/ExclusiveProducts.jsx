@@ -11,30 +11,49 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Pagination } from "@mui/material";
 
-const Collections = () => {
-  const { id } = useParams();
-  console.log("id :>> ", id);
+const ExlusiveProducts = () => {
   const [allproducts, setAllProducts] = useState([]);
 
   const [sortBy, setSortBy] = useState("SortBy");
+  const [subCategorySortBy, setSubCategorySortBy] = useState("SortBy");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   const itemsPerPage = 8;
 
+  //   const fetchInfo = () => {
+  //     fetch("http://localhost:4000/allproducts")
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         if (sortBy && sortBy != "SortBy") {
+  //           const filteredArr = data.filter(
+  //             (item) => item?.category === sortBy && item?.new_price < 1000
+  //           );
+  //           setAllProducts(filteredArr);
+  //         } else {
+  //           const filteredArr = data.filter((item) => item?.new_price < 1000);
+  //           setAllProducts(filteredArr);
+  //         }
+  //         setLoading(false);
+  //       });
+  //   };
   const fetchInfo = () => {
     fetch("http://localhost:4000/allproducts")
       .then((res) => res.json())
       .then((data) => {
-        if (sortBy && sortBy != "SortBy") {
-          const filteredArr = data.filter(
-            (item) => item?.category === sortBy && item?.subCategory === id
-          );
-          setAllProducts(filteredArr);
-        } else {
-          const filteredArr = data.filter((item) => item?.subCategory === id);
-          setAllProducts(filteredArr);
+        let filteredArr = data.filter((item) => item.new_price < 1000);
+
+        if (sortBy && sortBy !== "SortBy") {
+          filteredArr = filteredArr.filter((item) => item.category === sortBy);
         }
+
+        if (subCategorySortBy && subCategorySortBy !== "SortBy") {
+          filteredArr = filteredArr.filter(
+            (item) => item.subCategory === subCategorySortBy
+          );
+        }
+
+        setAllProducts(filteredArr);
         setLoading(false);
       });
   };
@@ -42,7 +61,7 @@ const Collections = () => {
   useEffect(() => {
     setCurrentPage(1);
     fetchInfo();
-  }, [sortBy, id]);
+  }, [sortBy, subCategorySortBy]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -80,6 +99,20 @@ const Collections = () => {
               <MenuItem value="kid">Kids</MenuItem>
             </Select>
           </FormControl>
+          {sortBy && sortBy != "SortBy" && (
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <Select
+                id="demo-simple-select-helper"
+                value={subCategorySortBy}
+                onChange={(e) => setSubCategorySortBy(e.target.value)}
+              >
+                <MenuItem value={"SortBy"}>Sort By</MenuItem>
+                <MenuItem value="clothing">Clothing</MenuItem>
+                <MenuItem value="shoes">Shoes</MenuItem>
+                <MenuItem value="accessories">Accessories</MenuItem>
+              </Select>
+            </FormControl>
+          )}
         </div>
       </div>
       <div className="shopcategory-products">
@@ -115,13 +148,8 @@ const Collections = () => {
           />
         </div>
       </div>
-      {/* <div className="shopcategory-loadmore">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          Explore More
-        </Link>
-      </div> */}
     </div>
   );
 };
 
-export default Collections;
+export default ExlusiveProducts;

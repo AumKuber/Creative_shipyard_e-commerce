@@ -19,7 +19,7 @@ const Footer = () => {
         <li>About</li>
         <li>Contact</li>
       </ul> */}
-      <div className="footer-social-icons">
+      {/* <div className="footer-social-icons">
         <div className="footer-icons-container">
             <img src={instagram_icon} alt="" />
         </div>
@@ -29,7 +29,7 @@ const Footer = () => {
         <div className="footer-icons-container">
             <img src={whatsapp_icon} alt="" />
         </div>
-      </div>
+      </div> */}
       <div className="footer-copyright">
         <hr />
         <p>Copyright @ 2024 - Creative Shipyard.</p>

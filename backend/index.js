@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const nodemailer = require("nodemailer");
 
 app.use(express.json());
 app.use(cors());
@@ -255,6 +256,40 @@ app.post("/removeproduct", async (req, res) => {
   const product = await Product.findOneAndDelete({ id: req.body.id });
   console.log("Removed");
   res.json({ success: true, name: req.body.name });
+});
+
+app.post("/sendmail", async (req, res) => {
+  const { email } = req.body;
+
+  const mailTransporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "mavadiyadivyesh56@gmail.com",
+      pass: "xlsz gkwd rrtg qhip",
+    },
+  });
+
+  const mailOptions = {
+    from: "mavadiyadivyesh56@gmail.com",
+    to: email,
+    subject: "Welcome to Creative Shipyard Exclusive Offers!",
+    text: `Dear Subscriber,
+    Thank you for subscribing to Creative Shipyard Exclusive Offers! 🎉
+    
+    Get ready to unlock a world of fashion-forward trends, exclusive discounts, and special promotions tailored just for you.
+    
+    Stay tuned for regular updates on the latest arrivals, styling tips, and VIP access to limited edition collections.
+    
+    Happy shopping!
+    
+    Best regards,
+    Creative Shipyard Team`,
+  };
+
+  await mailTransporter.sendMail(mailOptions);
+  res
+    .status(200)
+    .json({ success: true, msg: "Mail send successfully to your email" });
 });
 
 const start = async () => {

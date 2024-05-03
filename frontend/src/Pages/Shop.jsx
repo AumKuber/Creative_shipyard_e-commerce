@@ -4,32 +4,10 @@ import Popular from "../Components/Popular/Popular";
 import Offers from "../Components/Offers/Offers";
 import NewCollections from "../Components/NewCollections/NewCollections";
 import NewsLetter from "../Components/NewsLetter/NewsLetter";
+import SliderHero from "../Components/SliderHero/SliderHero";
 
 const Shop = () => {
   const [popular, setPopular] = useState([]);
-  const [newcollection, setNewCollection] = useState([
-    {
-      id: 1,
-      title: "Clothing",
-      value: "clothing",
-    },
-    {
-      id: 2,
-      title: "Shoes",
-      value: "shoes",
-    },
-    {
-      id: 3,
-      title: "Accessories",
-      value: "accessories",
-    },
-
-    {
-      id: 4,
-      title: "Outerwear",
-      value: "outwear",
-    },
-  ]);
 
   const fetchInfo = () => {
     fetch("http://localhost:4000/popularinwomen")
@@ -46,10 +24,11 @@ const Shop = () => {
 
   return (
     <div>
-      <Hero />
+      <SliderHero />
+      {/* <Hero /> */}
       {/* <Popular data={popular} /> */}
       <Offers />
-      <NewCollections data={newcollection} />
+      <NewCollections />
       <NewsLetter />
     </div>
   );

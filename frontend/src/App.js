@@ -14,6 +14,7 @@ import women_banner from "./Components/Assets/banners/women_banner.png";
 import kids_banner from "./Components/Assets/banners/kids_banner.png";
 import NewCollections from "./Components/NewCollections/NewCollections";
 import Collections from "./Pages/Collections";
+import ExlusiveProducts from "./Pages/ExclusiveProducts";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Shop gender="all" />} />
           <Route path="/collections/:id" element={<Collections />} />
+          <Route path="/exclusiveProducts" element={<ExlusiveProducts />} />
+          
           <Route
             path="/mens"
             element={<ShopCategory banner={discount_banner_2} category="men" />}
