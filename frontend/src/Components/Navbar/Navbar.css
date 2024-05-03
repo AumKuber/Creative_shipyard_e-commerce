@@ -11,7 +11,8 @@
   gap: 10px;
 }
 .nav-logo img {
-  width: 200px;
+  width: 100px;
+  rotate: 15deg;
 }
 .nav-logo p {
   color: #171717;

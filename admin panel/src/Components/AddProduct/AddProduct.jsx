@@ -8,7 +8,7 @@ const AddProduct = () => {
     name: "",
     image: "",
     category: "women",
-    subCategory: "",
+    subCategory: "clothing",
     new_price: "",
     old_price: "",
   });
@@ -124,12 +124,10 @@ const AddProduct = () => {
           <option value="clothing">Clothing</option>
           <option value="shoes">Shoes</option>
           <option value="accessories">Accessories</option>
-          <option value="gifts">Gifts</option>
-          <option value="outwear">Outerwear</option>
         </select>
       </div>
       <div className="addproduct-itemfield">
-        <p>Product title</p>
+        <p>Product Image</p>
         <label for="file-input">
           <img
             className="addproduct-thumbnail-img"

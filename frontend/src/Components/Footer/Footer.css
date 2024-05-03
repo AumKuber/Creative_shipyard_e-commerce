@@ -18,6 +18,7 @@
 }
 .footer-logo img{
     width: 200px;
+    rotate: 15deg;
 }
 .footer-links{
     display: flex;

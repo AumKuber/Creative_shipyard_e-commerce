@@ -23,13 +23,9 @@ const Shop = () => {
       title: "Accessories",
       value: "accessories",
     },
+
     {
       id: 4,
-      title: "Gifts",
-      value: "gifts",
-    },
-    {
-      id: 5,
       title: "Outerwear",
       value: "outwear",
     },

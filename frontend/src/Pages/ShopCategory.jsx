@@ -93,8 +93,6 @@ const ShopCategory = (props) => {
               <MenuItem value="clothing">Clothing</MenuItem>
               <MenuItem value="shoes">Shoes</MenuItem>
               <MenuItem value="accessories">Accessories</MenuItem>
-              <MenuItem value="gifts">Gifts</MenuItem>
-              <MenuItem value="outwear">Outerwear</MenuItem>
             </Select>
           </FormControl>
         </div>
