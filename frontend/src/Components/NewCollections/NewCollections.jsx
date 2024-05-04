@@ -12,7 +12,7 @@ const NewCollections = (props) => {
   const { id } = useParams();
   return (
     <div className="new-collections">
-      <h1>NEW COLLECTIONS</h1>
+      <h1>SHOP BY CATEGORIES</h1>
       <hr />
       <div className="collections">
         <div className="item">
@@ -25,7 +25,7 @@ const NewCollections = (props) => {
               fontWeight: "bold",
             }}
           >
-            Clothing
+            CLOTHING
           </p>
         </div>
         <div className="item">
@@ -38,7 +38,7 @@ const NewCollections = (props) => {
               fontWeight: "bold",
             }}
           >
-            Shoes
+            SHOES
           </p>
         </div>
         <div className="item">
@@ -54,7 +54,7 @@ const NewCollections = (props) => {
               fontWeight: "bold",
             }}
           >
-            Accessories
+            ACCESSORIES
           </p>
         </div>
       </div>

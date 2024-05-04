@@ -264,13 +264,13 @@ app.post("/sendmail", async (req, res) => {
   const mailTransporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "mavadiyadivyesh56@gmail.com",
-      pass: "xlsz gkwd rrtg qhip",
+      user: "creativeshipyard@gmail.com",
+      pass: "adzx ttlg afsi gehy",
     },
   });
 
   const mailOptions = {
-    from: "mavadiyadivyesh56@gmail.com",
+    from: "creativeshipyard@gmail.com",
     to: email,
     subject: "Welcome to Creative Shipyard Exclusive Offers!",
     text: `Dear Subscriber,
