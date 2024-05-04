@@ -29,7 +29,7 @@ const ListProduct = () => {
     fetch("http://localhost:4000/allproducts")
       .then((res) => res.json())
       .then((data) => {
-        let filteredArr = data.filter((item) => item.new_price < 1000);
+        let filteredArr = data.filter((item) => item);
 
         if (sortBy && sortBy !== "SortBy") {
           filteredArr = filteredArr.filter((item) => item.category === sortBy);
